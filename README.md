@@ -12,13 +12,13 @@ $ npm run setup
 ```
 
 ## Test
-``
+```
 $ npm test
 ```
 
 ## Run
 ```
-$ npm start
+$ pm start
 ```
 
 ## Usage
