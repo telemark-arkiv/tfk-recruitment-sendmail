@@ -1,66 +1,33 @@
-'use strict';
+'use strict'
 
-var assert = require('assert');
-var getRecruitments = require('../lib/getRecruitments');
+var tap = require('tap')
+var getRecruitments = require('../lib/getRecruitments')
 
-describe('getRecruitments', function() {
+tap.test('url must be supplied', function (test) {
+  var url = false
+  var expectedErrorMessage = 'Missing required input: url'
+  getRecruitments(url, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-  it('it requires an url', function(done) {
+tap.test('it requires url to be valid', function (test) {
+  var url = 'pysjevev'
+  var expectedErrorMessage = 'Invalid url'
+  getRecruitments(url, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-    var url = false;
-
-    getRecruitments(url, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Missing required input: url/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
-
-  it('it requires url to be valid', function(done) {
-
-    var url = 'pysjevev';
-
-    getRecruitments(url, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Invalid url/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
-
-  it('it returns an array if succesful', function(done) {
-
-    var url = 'https://api.t-fk.no/recruitments';
-
-    getRecruitments(url, function(err, data) {
-      if (err) {
-        throw err;
-      } else {
-        assert(Array.isArray(data));
-      }
-      done();
-    });
-  });
-
-});
+tap.test('it returns an array if succesful', function (test) {
+  var url = 'https://api.t-fk.no/recruitments'
+  getRecruitments(url, function errorIfMissingOptions (error, data) {
+    if (error) {
+      throw error
+    }
+    tap.equal(Array.isArray(data), true, 'Array OK')
+    test.done()
+  })
+})

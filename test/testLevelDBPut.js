@@ -1,96 +1,50 @@
-'use strict';
+'use strict'
 
-var assert = require('assert');
-var db = require('../lib/leveldb');
+var tap = require('tap')
+var db = require('../lib/leveldb')
 
-describe('dbPut', function() {
+tap.test('It requires an options object', function (test) {
+  var options = false
+  var expectedErrorMessage = 'Missing required input: options'
+  db.put(options, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-  it('it requires an options object', function(done) {
+tap.test('it requires options.key to exist', function (test) {
+  var options = {
+    key: false
+  }
+  var expectedErrorMessage = 'Missing required input: options.key'
+  db.put(options, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-    var options = false;
+tap.test('it requires options.value to exist', function (test) {
+  var options = {
+    key: true,
+    value: false
+  }
+  var expectedErrorMessage = 'Missing required input: options.value'
+  db.put(options, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-    db.put(options, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Missing required input: options/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
-
-  it('it requires options.key to exist', function(done) {
-
-    var options = {
-      key: false
-    };
-
-    db.put(options, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Missing required input: options.key/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
-
-  it('it requires options.value to exist', function(done) {
-
-    var options = {
-      key: true,
-      value:false
-    };
-
-    db.put(options, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Missing required input: options.value/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
-
-  it('it returns a message on success', function(done) {
-
-    var options = {
-      key: 'testKey',
-      value:'testValue'
-    };
-
-    db.put(options, function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        assert.equal(data.message, 'Data saved');
-      }
-      done();
-    });
-  });
-
-});
+tap.test('it returns a message on success', function (test) {
+  var options = {
+    key: 'testKey',
+    value: 'testValue'
+  }
+  db.put(options, function errorIfMissingOptions (error, data) {
+    if (error) {
+      throw error
+    }
+    tap.equal(data.message, 'Data saved', 'Message')
+    test.done()
+  })
+})

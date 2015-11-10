@@ -1,3 +1,6 @@
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+[![Build Status](https://travis-ci.org/telemark/tfk-recruitment-sendmail.svg?branch=master)](https://travis-ci.org/telemark/tfk-recruitment-sendmail)
+
 # tfk-recruitment-sendmail
 Sends mail if there are new openings
 

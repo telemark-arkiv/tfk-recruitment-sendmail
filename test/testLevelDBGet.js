@@ -1,57 +1,32 @@
-'use strict';
+'use strict'
 
-var assert = require('assert');
-var db = require('../lib/leveldb');
+var tap = require('tap')
+var db = require('../lib/leveldb')
 
-describe('dbGet', function() {
+tap.test('It requires a key', function (test) {
+  var key = false
+  var expectedErrorMessage = 'Missing required input: key'
+  db.get(key, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-  it('it requires a key', function(done) {
+tap.test('it will return error if key not found', function (test) {
+  var key = 'YabbaDabbaDooooooo'
+  db.get(key, function errorIfMissingOptions (error, data) {
+    tap.ok(error.notFound, 'None found')
+    test.done()
+  })
+})
 
-    var key = false;
-
-    db.get(key, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Missing required input: key/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
-
-  it('it will return error if key not found', function(done) {
-
-    var key = 'YabbaDabbaDooooooo';
-
-    db.get(key, function(err, data) {
-      if (err) {
-        assert(err.notFound);
-      } else {
-        console.log(console.log(data));
-      }
-      done();
-    });
-  });
-
-  it('it returns value if key is found', function(done) {
-
-    var key = 'testKey';
-
-    db.get(key, function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        assert.equal(data, 'testValue');
-      }
-      done();
-    });
-  });
-});
+tap.test('it returns value if key is found', function (test) {
+  var key = 'testKey'
+  db.get(key, function errorIfMissingOptions (error, data) {
+    if (error) {
+      throw error
+    }
+    tap.ok(data, 'testValue')
+    test.done()
+  })
+})

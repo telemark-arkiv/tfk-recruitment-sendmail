@@ -1,177 +1,92 @@
-'use strict';
+'use strict'
 
-var assert = require('assert');
-var createMessage = require('../lib/createMessage');
+var tap = require('tap')
+var createMessage = require('../lib/createMessage')
 
-describe('createMessage', function() {
+tap.test('Options object must be supplied', function (test) {
+  var options = false
+  var expectedErrorMessage = 'Missing required input: options'
+  createMessage(options, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-  it('it requires an options object', function(done) {
+tap.test('Options.title must be supplied', function (test) {
+  var options = {
+    title: false
+  }
+  var expectedErrorMessage = 'Missing required input: options.title'
+  createMessage(options, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-    var options = false;
+tap.test('Options.locationName must be supplied', function (test) {
+  var options = {
+    title: true,
+    locationName: false
+  }
+  var expectedErrorMessage = 'Missing required input: options.locationName'
+  createMessage(options, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-    createMessage(options, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Missing required input: options/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
+tap.test('Options.positionType must be supplied', function (test) {
+  var options = {
+    title: true,
+    locationName: true,
+    positionType: false
+  }
+  var expectedErrorMessage = 'Missing required input: options.positionType'
+  createMessage(options, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-  it('it requires options.title to exists', function(done) {
+tap.test('Options.deadline must be supplied', function (test) {
+  var options = {
+    title: true,
+    locationName: true,
+    positionType: true,
+    deadline: false
+  }
+  var expectedErrorMessage = 'Missing required input: options.deadline'
+  createMessage(options, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-    var options = {
-      title: false
-    };
+tap.test('Options.link must be supplied', function (test) {
+  var options = {
+    title: true,
+    locationName: true,
+    positionType: true,
+    deadline: true,
+    link: false
+  }
+  var expectedErrorMessage = 'Missing required input: options.link'
+  createMessage(options, function errorIfMissingOptions (error, data) {
+    tap.equal(error.message, expectedErrorMessage, expectedErrorMessage)
+    test.done()
+  })
+})
 
-    createMessage(options, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Missing required input: options.title/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
+tap.test('it returns a correct formatted message on success', function (test) {
+  var options = require('./data/job.json')
+  var messageData = require('./data/message.json')
 
-  it('it requires options.locationName to exists', function(done) {
-
-    var options = {
-      title: true,
-      locationName: false
-    };
-
-    createMessage(options, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Missing required input: options.locationName/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
-
-  it('it requires options.positionType to exists', function(done) {
-
-    var options = {
-      title: true,
-      locationName: true,
-      positionType: false
-    };
-
-    createMessage(options, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Missing required input: options.positionType/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
-
-  it('it requires options.deadline to exists', function(done) {
-
-    var options = {
-      title: true,
-      locationName: true,
-      positionType: true,
-      deadline: false
-    };
-
-    createMessage(options, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Missing required input: options.deadline/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
-
-  it('it requires options.link to exists', function(done) {
-
-    var options = {
-      title: true,
-      locationName: true,
-      positionType: true,
-      deadline: true,
-      link: false
-    };
-
-    createMessage(options, function(err, data) {
-      assert.throws(function() {
-          if (err) {
-            throw err;
-          } else {
-            console.log(data);
-          }
-        }, function(err) {
-          if ((err instanceof Error) && /Missing required input: options.link/.test(err)) {
-            return true;
-          }
-        },
-        'Unexpected error'
-      );
-      done();
-    });
-  });
-
-  it('it returns a correct formatted message on success', function(done) {
-
-    var options = require('./data/job.json');
-    var messageData = require('./data/message.json');
-
-
-    createMessage(options, function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        assert.equal(data.message, messageData.message);
-        assert.equal(data.subject, messageData.subject);
-      }
-      done();
-    });
-  });
-
-});
+  createMessage(options, function errorIfMissingOptions (error, data) {
+    if (error) {
+      throw error
+    }
+    tap.equal(messageData.message, data.message, 'Message is equal')
+    tap.equal(messageData.subject, data.subject, 'Subject is equal')
+    test.done()
+  })
+})
