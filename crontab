@@ -1,1 +1,1 @@
-2 * * * * root doAction >> /var/log/cron.log
+2 * * * * root node action.js >> /var/log/cron.log

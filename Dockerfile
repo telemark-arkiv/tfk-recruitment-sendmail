@@ -18,14 +18,16 @@ COPY . /src
 # Change working directory
 WORKDIR "/src"
 
+RUN chmod +x startup.sh
+
 # Install dependencies
 RUN npm run setup
 
 # Env variables
-ENV API_KEY = yourSendGridAPIKey
-ENV API_URL = urlToRecruitments
-ENV MAIL_FROM = mailfrom@example.com
-ENV MAIL_TO = mailto@example.com
+ENV API_KEY yourSendGridAPIKey
+ENV API_URL https://api.t-fk.no/recruitments
+ENV MAIL_FROM mailfrom@example.com
+ENV MAIL_TO mailto@example.com
 
 # Add crontab file in the cron directory
 ADD crontab /etc/cron.d/hello-cron
@@ -37,6 +39,4 @@ RUN chmod 0644 /etc/cron.d/hello-cron
 RUN touch /var/log/cron.log
 
 # Startup
-ENTRYPOINT ["doAction.sh"]
-
-CMD ["cron"]
+ENTRYPOINT ["./startup.sh"]

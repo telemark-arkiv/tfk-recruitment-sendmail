@@ -12,6 +12,9 @@ var mail = {
   message: 'The time is: ' + new Date()
 }
 
+console.log('Jeg virker!')
+console.log(options)
+
 sendMail({
   apiKey: options.apiKey,
   to: options.mailTo,
