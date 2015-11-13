@@ -1,0 +1,1 @@
+2 * * * * root doAction >> /var/log/cron.log
