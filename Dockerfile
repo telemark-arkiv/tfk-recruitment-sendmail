@@ -19,7 +19,7 @@ COPY . /src
 WORKDIR "/src"
 
 # Install dependencies
-RUN npm run setup
+RUN npm run setupDocker
 
 # Env variables
 ENV API_KEY yourSendGridAPIKey
