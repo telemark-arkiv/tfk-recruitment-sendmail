@@ -5,9 +5,9 @@
 Sends mail if there are new openings
 
 ## Requirements
-You'll need a SendGrid account.
+You'll need a [SendGrid](https://sendgrid.com/) account and an API-key.
 
-You'll need an API for recruitments similiar to the one used by Telemark fylkeskommune.
+You'll need an API for recruitments similiar to the one used by [Telemark fylkeskommune](https://api.t-fk.no/recruitments).
 
 ## Installation
 ```
@@ -26,30 +26,30 @@ $ npm test
 
 ## Usage
 
-```
-'use strict';
+```javascript
+'use strict'
 
-var recruitmentsSendMail = require('tfk-recruitment-sendmail');
+var recruitmentsSendMail = require('tfk-recruitment-sendmail')
 
 var options = {
   apiKey: 'your-sendgrid-api-key',
   apiUrl: 'https://api.t-fk.no/recruitments',
   mailTo: 'you@example.com',
   mailFrom: me@example.com
-};
+}
 
-recruitmentsSendMail(options, function(error, data){
+recruitmentsSendMail(options, function (error, data) {
   if (error) {
-    console.error(error);
+    console.error(error)
   } else {
-    console.log(data);
+    console.log(data)
   }
-});
+})
 ```
 
 Example of returned data
 
-```
+```javascript
  NumberOfRecruitments: 11,
   NumberSendt: 11,
   NumberPreviousSendt: 0,
@@ -68,3 +68,19 @@ Example of returned data
   LinksNotSendt: [] }
 ```
 
+## Docker
+To run this module as a service use the docker image.
+
+Change the ENV parts of the [Dockerfile](Dockerfile) and start a build
+
+```sh
+$ docker build -t tfk-recruitment-sendmail .
+```
+
+Start a container
+
+```sh
+$ docker run -d tfk-recruitment-sendmail 
+```
+
+and you'll have a service to check for new openings and send mail at the interval specified in the CRON_SETTINGS

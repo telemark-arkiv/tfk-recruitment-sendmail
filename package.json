@@ -24,7 +24,8 @@
     "Telemark fylkeskommune",
     "tfk",
     "recruitments",
-    "mail"
+    "mail",
+    "docker"
   ],
   "repository": {
     "type": "git",
