@@ -10,7 +10,6 @@ db.put(options, function errorIfMissingOptions (error, data) {
   if (error) {
     throw error
   } else {
-    console.log(data)
     console.log('Everything\'s shiny, Cap\'n. Not to fret.')
   }
 })
