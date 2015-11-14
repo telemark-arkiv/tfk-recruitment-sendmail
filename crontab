@@ -1,1 +1,0 @@
-2 * * * * root node action.js >> /var/log/cron.log
