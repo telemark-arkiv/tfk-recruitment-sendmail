@@ -49,38 +49,44 @@ recruitmentsSendMail(options, function (error, data) {
 
 Example of returned data
 
-```javascript
- NumberOfRecruitments: 11,
-  NumberSendt: 11,
-  NumberPreviousSendt: 0,
-  LinksSendt: 
-   [ 'https://hrm.btvregion.no/tfk_recruitment/jobid/2488',
-     'https://hrm.btvregion.no/tfk_recruitment/jobid/2494',
-     'https://hrm.btvregion.no/tfk_recruitment/jobid/2489',
-     'https://hrm.btvregion.no/tfk_recruitment/jobid/2502',
-     'https://hrm.btvregion.no/tfk_recruitment/jobid/2492',
-     'https://hrm.btvregion.no/tfk_recruitment/jobid/2501',
-     'https://hrm.btvregion.no/tfk_recruitment/jobid/2493',
-     'https://hrm.btvregion.no/tfk_recruitment/jobid/2499',
-     'https://hrm.btvregion.no/tfk_recruitment/jobid/2434',
-     'https://hrm.btvregion.no/tfk_recruitment/jobid/2500',
-     'https://hrm.btvregion.no/tfk_recruitment/jobid/2487' ],
-  LinksNotSendt: [] }
+```sh
+Found a total of 11 jobs
+This job is fresh! https://hrm.btvregion.no/tfk_recruitment/jobid/2633
+This job is previously published: https://hrm.btvregion.no/tfk_recruitment/jobid/2665
+This job is previously published: https://hrm.btvregion.no/tfk_recruitment/jobid/2666
+This job is previously published: https://hrm.btvregion.no/tfk_recruitment/jobid/2662
+This job is previously published: https://hrm.btvregion.no/tfk_recruitment/jobid/2638
+This job is previously published: https://hrm.btvregion.no/tfk_recruitment/jobid/2639
+This job is previously published: https://hrm.btvregion.no/tfk_recruitment/jobid/2656
+This job is previously published: https://hrm.btvregion.no/tfk_recruitment/jobid/2651
+This job is previously published: https://hrm.btvregion.no/tfk_recruitment/jobid/2652
+This job is previously published: https://hrm.btvregion.no/tfk_recruitment/jobid/2654
+This job is previously published: https://hrm.btvregion.no/tfk_recruitment/jobid/2655
+Mail delivered
+{"message":"success"}
+{ jobsDone: 11, newJobs: 1, oldJobs: 10 }
 ```
 
 ## Docker
 To run this module as a service use the docker image.
 
-Change the ENV parts of the [Dockerfile](Dockerfile) and start a build
+Change the ENV parts of the [Dockerfile](Dockerfile) or use [docker.env](docker.env)
 
+Build
 ```sh
 $ docker build -t tfk-recruitment-sendmail .
 ```
 
-Start a container
+Run a container
 
 ```sh
-$ docker run -d tfk-recruitment-sendmail 
+$ docker run --rm tfk-recruitment-sendmail 
 ```
 
-and you'll have a service to check for new openings and send mail at the interval specified in the CRON_SETTINGS
+or
+
+```sh
+$ docker run --env-file=docker.env --rm tfk-recruitment-sendmail 
+```
+
+This will spin up a container. Do the jobs. Shut it down and remove it.

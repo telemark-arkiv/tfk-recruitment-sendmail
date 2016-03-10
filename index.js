@@ -1,10 +1,10 @@
 'use strict'
 
 var validUrl = require('valid-url')
-var db = require('./lib/leveldb')
 var getRecruitments = require('./lib/getRecruitments')
 var createMessage = require('./lib/createMessage')
 var sendMail = require('./lib/sendMail')
+var fixDate = require('./lib/fix-date')
 
 function recruitmentsSendMail (options, callback) {
   if (!options) {
@@ -31,69 +31,63 @@ function recruitmentsSendMail (options, callback) {
     return callback(new Error('Missing required input: options.mailFrom'), null)
   }
 
+  var dagens = fixDate()
   var totalJobs = 0
   var jobsDone = 0
-  var log = {
-    NumberOfRecruitments: 0,
-    NumberSendt: 0,
-    NumberPreviousSendt: 0,
-    LinksSendt: [],
-    LinksNotSendt: []
-  }
+  var newJobs = 0
+  var oldJobs = 0
 
   function areWeDoneYet () {
     jobsDone++
     if (totalJobs === jobsDone) {
-      return callback(null, log)
+      return callback(null, {jobsDone: jobsDone, newJobs: newJobs, oldJobs: oldJobs})
     }
   }
 
-  getRecruitments(options.apiUrl, function (error, jobs) {
+  function handleMessage (error, mail) {
     if (error) {
       return callback(error, null)
     } else {
-      log.NumberOfRecruitments = jobs.length
+      sendMail({
+        apiKey: options.apiKey,
+        to: options.mailTo,
+        from: options.mailFrom,
+        subject: mail.subject,
+        message: mail.message
+      }, function (err, msg) {
+        if (err) {
+          return callback(err, null)
+        } else {
+          console.log('Mail delivered')
+          console.log(JSON.stringify(msg))
+          areWeDoneYet()
+        }
+      })
+    }
+  }
+
+  function handleRecruitments (error, jobs) {
+    if (error) {
+      return callback(error, null)
+    } else {
+      console.log('Found a total of ' + jobs.length + ' jobs')
       totalJobs = jobs.length
 
       jobs.forEach(function (job) {
-        db.get(job.jobid, function (err, data) {
-          if (err && err.type === 'NotFoundError') {
-            createMessage(job, function (er, mail) {
-              if (er) {
-                return callback(er, null)
-              } else {
-                sendMail({
-                  apiKey: options.apiKey,
-                  to: options.mailTo,
-                  from: options.mailFrom,
-                  subject: mail.subject,
-                  message: mail.message
-                }, function (e, msg) {
-                  if (e) {
-                    return callback(e, null)
-                  } else {
-                    log.NumberSendt++
-                    log.LinksSendt.push(job.link)
-                    db.put({key: job.jobid, value: job}, function (feil, putMsg) {
-                      if (feil) {
-                        return callback(feil, null)
-                      } else {
-                        areWeDoneYet()
-                      }
-                    })
-                  }
-                })
-              }
-            })
-          } else {
-            log.NumberPreviousSendt++
-            log.LinksNotSendt.push(job.link)
-            areWeDoneYet()
-          }
-        })
+        if (dagens === job.published) {
+          console.log('This job is fresh! ' + job.link)
+          newJobs++
+          createMessage(job, handleMessage)
+        } else {
+          console.log('This job is previously published: ' + job.link)
+          oldJobs++
+          areWeDoneYet()
+        }
       })
     }
-  })
+  }
+
+  getRecruitments(options.apiUrl, handleRecruitments)
 }
 
 module.exports = recruitmentsSendMail

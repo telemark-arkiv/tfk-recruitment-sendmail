@@ -1,15 +1,3 @@
 'use strict'
 
-var db = require('./lib/leveldb')
-var options = {
-  key: 'testKey',
-  value: 'testValue'
-}
-
-db.put(options, function errorIfMissingOptions (error, data) {
-  if (error) {
-    throw error
-  } else {
-    console.log('Everything\'s shiny, Cap\'n. Not to fret.')
-  }
-})
+console.log('Everything\'s shiny, Cap\'n. Not to fret.')
