@@ -29,6 +29,7 @@ ENV API_KEY yourSendGridAPIKey
 ENV API_URL https://api.t-fk.no/recruitments
 ENV MAIL_FROM mailfrom@example.com
 ENV MAIL_TO mailto@example.com
+ENV MAIL_CC mailcc@example.com
 
 # Startup
 ENTRYPOINT node example

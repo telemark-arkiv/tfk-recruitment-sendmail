@@ -1,12 +1,12 @@
 'use strict'
 
-var validUrl = require('valid-url')
-var getRecruitments = require('./lib/getRecruitments')
-var createMessage = require('./lib/createMessage')
-var sendMail = require('./lib/sendMail')
-var fixDate = require('./lib/fix-date')
+const validUrl = require('valid-url')
+const getRecruitments = require('./lib/getRecruitments')
+const createMessage = require('./lib/createMessage')
+const sendMail = require('./lib/sendMail')
+const fixDate = require('./lib/fix-date')
 
-function recruitmentsSendMail (options, callback) {
+module.exports = (options, callback) => {
   if (!options) {
     return callback(new Error('Missing required input: options'), null)
   }
@@ -51,6 +51,7 @@ function recruitmentsSendMail (options, callback) {
       sendMail({
         apiKey: options.apiKey,
         to: options.mailTo,
+        cc: options.mailCc,
         from: options.mailFrom,
         subject: mail.subject,
         message: mail.message
@@ -89,5 +90,3 @@ function recruitmentsSendMail (options, callback) {
 
   getRecruitments(options.apiUrl, handleRecruitments)
 }
-
-module.exports = recruitmentsSendMail

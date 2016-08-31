@@ -35,7 +35,8 @@ var options = {
   apiKey: 'your-sendgrid-api-key',
   apiUrl: 'https://api.t-fk.no/recruitments',
   mailTo: 'you@example.com',
-  mailFrom: me@example.com
+  mailFrom: 'me@example.com',
+  mailCc: 'anotherme@example.com'
 }
 
 recruitmentsSendMail(options, function (error, data) {
