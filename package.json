@@ -33,7 +33,7 @@
     "url": "http://github.com/telemark/tfk-recruitment-sendmail/issues"
   },
   "dependencies": {
-    "sendgrid": "4.2.0",
+    "sendgrid": "4.3.0",
     "valid-url": "1.0.9"
   },
   "devDependencies": {
