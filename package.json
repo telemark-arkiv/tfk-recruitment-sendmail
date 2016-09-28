@@ -1,6 +1,6 @@
 {
   "name": "tfk-recruitment-sendmail",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Send mail if there are new openings",
   "license": "MIT",
   "author": {
@@ -10,7 +10,7 @@
   },
   "main": "index.js",
   "engines": {
-    "node": ">=4.5.0"
+    "node": ">=4.6.0"
   },
   "scripts": {
     "test": "standard && nsp check && tap --reporter=spec test/*.js",
