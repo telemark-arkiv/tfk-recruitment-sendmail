@@ -2,6 +2,8 @@
 [![Build Status](https://travis-ci.org/telemark/tfk-recruitment-sendmail.svg?branch=master)](https://travis-ci.org/telemark/tfk-recruitment-sendmail)
 
 # tfk-recruitment-sendmail
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/telemark/tfk-recruitment-sendmail.svg)](https://greenkeeper.io/)
 Sends mail if there are new openings
 
 ## Requirements
