@@ -93,3 +93,9 @@ $ docker run --env-file=docker.env --rm tfk-recruitment-sendmail
 ```
 
 This will spin up a container. Do the jobs. Shut it down and remove it.
+
+## License
+[MIT](LICENSE)
+
+![alt text](https://robots.kebabstudios.party/tfk-recruitment-sendmail.png "Robohash image of tfk-recruitment-sendmail")
+

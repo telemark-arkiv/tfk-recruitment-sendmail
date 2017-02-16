@@ -16,7 +16,8 @@
     "test": "standard && nsp check && tap --reporter=spec test/*.js",
     "coverage": "tap test/*.js --coverage",
     "coveralls": "tap --cov --coverage-report=lcov test/*.js && cat coverage/lcov.info | coveralls",
-    "setup": "npm install && node setup.js"
+    "setup": "npm install && node setup.js",
+    "standard-fix": "standard --fix"
   },
   "keywords": [
     "Telemark fylkeskommune",
@@ -27,10 +28,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/telemark/tfk-recruitment-sendmail.git"
+    "url": "https://github.com/telemark/tfk-recruitment-sendmail.git"
   },
   "bugs": {
-    "url": "http://github.com/telemark/tfk-recruitment-sendmail/issues"
+    "url": "https://github.com/telemark/tfk-recruitment-sendmail/issues"
   },
   "dependencies": {
     "sendgrid": "4.7.1",
