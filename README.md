@@ -1,9 +1,9 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 [![Build Status](https://travis-ci.org/telemark/tfk-recruitment-sendmail.svg?branch=master)](https://travis-ci.org/telemark/tfk-recruitment-sendmail)
+[![Greenkeeper badge](https://badges.greenkeeper.io/telemark/tfk-recruitment-sendmail.svg)](https://greenkeeper.io/)
 
 # tfk-recruitment-sendmail
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/telemark/tfk-recruitment-sendmail.svg)](https://greenkeeper.io/)
 Sends mail if there are new openings
 
 ## Requirements

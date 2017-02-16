@@ -4,8 +4,8 @@
 #
 ###########################################################
 
-# Setting the base to nodejs 4.6.0
-FROM mhart/alpine-node:4.6.0
+# Setting the base to nodejs 7.5.0
+FROM node:7.5.0-alpine
 
 # Maintainer
 MAINTAINER Geir Gåsodden
@@ -23,13 +23,6 @@ WORKDIR "/src"
 
 # Install dependencies
 RUN npm install --production
-
-# Env variables
-ENV API_KEY yourSendGridAPIKey
-ENV API_URL https://api.t-fk.no/recruitments
-ENV MAIL_FROM mailfrom@example.com
-ENV MAIL_TO mailto@example.com
-ENV MAIL_CC mailcc@example.com
 
 # Startup
 ENTRYPOINT node example
