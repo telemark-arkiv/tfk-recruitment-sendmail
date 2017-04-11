@@ -34,12 +34,12 @@
     "url": "https://github.com/telemark/tfk-recruitment-sendmail/issues"
   },
   "dependencies": {
-    "sendgrid": "4.7.1",
+    "sendgrid": "5.0.0",
     "valid-url": "1.0.9"
   },
   "devDependencies": {
-    "coveralls": "2.11.16",
-    "nsp": "2.6.2",
+    "coveralls": "2.13.0",
+    "nsp": "2.6.3",
     "standard": "10.0.1",
     "tap": "10.2.1"
   }
