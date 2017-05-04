@@ -1,6 +1,6 @@
 {
   "name": "tfk-recruitment-sendmail",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "description": "Send mail if there are new openings",
   "license": "MIT",
   "author": {
