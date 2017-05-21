@@ -1,6 +1,6 @@
 {
   "name": "tfk-recruitment-sendmail",
-  "version": "2.2.3",
+  "version": "2.2.7",
   "description": "Send mail if there are new openings",
   "license": "MIT",
   "author": {
@@ -34,13 +34,13 @@
     "url": "https://github.com/telemark/tfk-recruitment-sendmail/issues"
   },
   "dependencies": {
-    "sendgrid": "4.7.1",
+    "sendgrid": "5.1.0",
     "valid-url": "1.0.9"
   },
   "devDependencies": {
-    "coveralls": "2.11.16",
-    "nsp": "2.6.2",
-    "standard": "8.6.0",
+    "coveralls": "2.13.1",
+    "nsp": "2.6.3",
+    "standard": "10.0.2",
     "tap": "10.3.2"
   }
 }
