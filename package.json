@@ -1,6 +1,6 @@
 {
   "name": "tfk-recruitment-sendmail",
-  "version": "2.2.10",
+  "version": "2.2.11",
   "description": "Send mail if there are new openings",
   "license": "MIT",
   "author": {
@@ -41,6 +41,6 @@
     "coveralls": "2.13.1",
     "nsp": "2.6.3",
     "standard": "10.0.2",
-    "tap": "10.4.0"
+    "tap": "10.3.3"
   }
 }
